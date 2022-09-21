@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(csrf_token)
     delBtn.forEach((btn) => {
         btn.addEventListener('click', async () => {
-            deleteBook(btn.dataset.id, csrf_token.value).then(res => location.reload())
+            deleteBook(btn.dataset.id, csrf_token.value).then(() => location.reload())
         });
     });
 });

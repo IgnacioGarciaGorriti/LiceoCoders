@@ -5,12 +5,13 @@
     <title>{% block title %}Index{% endblock %}</title>
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
     {% block stylesheets %}{% endblock %}
+    {% block javascript %}{% endblock %}
 </head>
 <body>
-    <header>
-        {% include '_partial/toolbar.html' %}
-    </header>
+<header>
+    {% include '_partial/toolbar.html' %}
+</header>
 
-    {% block content %}{% endblock %}
+{% block content %}{% endblock %}
 </body>
 </html>

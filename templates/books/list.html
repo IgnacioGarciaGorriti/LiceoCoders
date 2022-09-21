@@ -4,6 +4,8 @@
 
 {% block stylesheets %}
     <link href="{{ url_for('static', filename='css/book-list.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+{% block javascript %}
     <script src="{{ url_for('static', filename='js/list.js') }}" type="application/javascript"></script>
 {% endblock %}
 
@@ -28,7 +30,8 @@
                                 <a class="btn btn-warning d-flex justify-content-center px-1 me-2"
                                    href="{{ url_for('books.update_template', book_id=book.id) }}"><i
                                         class="d-flex edit-icon h-75 w-75 align-self-center"></i></a>
-                                <button class="btn btn-outline-danger d-flex justify-content-center px-2 me-2 trash-icon" data-id="{{ book.id }}">
+                                <button class="btn btn-outline-danger d-flex justify-content-center px-2 me-2 trash-icon"
+                                        data-id="{{ book.id }}">
                                     <i class="delete-icon h-75 w-75 align-self-center"></i></button>
                             </div>
                         </div>
