@@ -1,0 +1,13 @@
+<div class="d-flex p-3 w-100 shadow-sm">
+    <div class="d-flex flex-grow-1">
+        <a class="text-decoration-none text-dark p-1 me-3" href="{{ url_for('books.display_list') }}"><span>Mi biblioteca</span></a>
+        <a class="text-decoration-none text-dark p-1 ms-3" href="{{ url_for('books.add_book') }}">Añadir libro</a>
+        <div class="d-inline-flex flex-grow-1 justify-content-end">
+            {% if g.user is defined %}
+                <a class="btn btn-outline-danger float-end align-self-end" href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a class="btn btn-success float-end align-self-end" href="{{ url_for('login') }}">Login</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

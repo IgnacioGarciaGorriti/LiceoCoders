@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Book{% endblock %}
+
+{% block content %}
+    <div class="container d-flex justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 mt-4">
+            <img class="w-100 pe-3" src="{{ url_for('static', filename='images/' + book.filename ) }}"
+                 alt="{{ book.filename }}">
+        </div>
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4">
+            <div class="d-flex-inline border border-1 rounded-3 p-3 mt-4">
+                <table class="table fs-5">
+                    <tr>
+                        <td>Id</td>
+                        <td>{{ book.id }}</td>
+                    </tr>
+                    <tr>
+                        <td>Title</td>
+                        <td>{{ book.title }}</td>
+                    </tr>
+                    <tr>
+                        <td>ISBN</td>
+                        <td>{{ book.isbn }}</td>
+                    </tr>
+                    <tr>
+                        <td>Category</td>
+                        <td>{{ book.category }}</td>
+                    </tr>
+                    <tr>
+                        <td>Author</td>
+                        <td>{{ book.author }}</td>
+                    </tr>
+                    <tr>
+                        <td>Pages</td>
+                        <td>{{ book.num_of_pages }}</td>
+                    </tr>
+                    <tr>
+                        <td>User</td>
+                        <td>{{ book.user_id }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

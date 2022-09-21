@@ -1,0 +1,12 @@
+.edit-icon {
+    content: url("/static/css/edit.svg");
+}
+
+.delete-icon {
+    content: url("/static/css/trash.svg");
+    fill: blue;
+}
+
+.trash-icon:hover .delete-icon {
+    content: url("/static/css/trash-white.svg");
+}

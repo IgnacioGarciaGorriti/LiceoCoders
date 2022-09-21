@@ -1,0 +1,46 @@
+{{ form.csrf_token }}
+<div>
+    {{ form.title.label(class_="form-label") }}
+    {{ form.title(class_="form-control") }}
+    {% for error in form.title.errors %}
+        <span>{{ error }}</span>
+    {% endfor %}
+</div>
+<div>
+    {{ form.isbn.label(class_="form-label") }}
+    {{ form.isbn(class_="form-control") }}
+    {% for error in form.isbn.errors %}
+        <span>{{ error }}</span>
+    {% endfor %}
+</div>
+<div>
+    {{ form.category.label(class_="form-label") }}
+    {{ form.category(class_="form-control") }}
+    {% for error in form.category.errors %}
+        <span>{{ error }}</span>
+    {% endfor %}
+</div>
+<div>
+    {{ form.image.label(class_="form-label") }}
+    {{ form.image(class_="form-control") }}
+    {% for error in form.image.errors %}
+        <span>{{ error }}</span>
+    {% endfor %}
+</div>
+<div>
+    {{ form.author.label(class_="form-label") }}
+    {{ form.author(class_="form-control") }}
+    {% for error in form.author.errors %}
+        <span>{{ error }}</span>
+    {% endfor %}
+</div>
+<div>
+    {{ form.num_of_pages.label(class_="form-label") }}
+    {{ form.num_of_pages(class_="form-control") }}
+    {% for error in form.num_of_pages.errors %}
+        <span>{{ error }}</span>
+    {% endfor %}
+</div>
+<div>
+    {{ form.submit(class_="btn btn-success mt-3 w-100") }}
+</div>

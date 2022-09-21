@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Añadir{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="h1 mt-3">
+            <span>Nuevo libro</span>
+        </div>
+        <hr>
+        <div class="d-flex w-100 justify-content-center">
+            <div class="col-12 col-sm-7 col-lg-4">
+                <div class="border border-1 p-5 rounded-4 w-100 h-100 mt-4">
+                    <form action="{{ url_for('books.add_book') }}" method="post" enctype="multipart/form-data">
+                        {% include 'books/_partial/form_data.html' %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

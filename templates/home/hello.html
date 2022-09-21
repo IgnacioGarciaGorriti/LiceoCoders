@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Hello{% endblock %}
+
+{% block content %}
+
+    <div class="d-flex justify-content-center mt-4">
+        <div class=" row justify-content-center">
+            <h1 class="text-center mb-4">Bienvenido a tu librería!!</h1>
+            <img class="w-100" src="{{ url_for('static', filename="css/library.gif") }}" alt="library">
+        </div>
+    </div>
+{% endblock %}
