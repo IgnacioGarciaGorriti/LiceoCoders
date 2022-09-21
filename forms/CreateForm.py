@@ -1,3 +1,4 @@
+from flask_login import current_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms import StringField, IntegerField, SelectField, SubmitField
@@ -8,7 +9,7 @@ from models.book import book_list
 
 def unique_title(form, field):
     for book in book_list:
-        if book.title == field.data:
+        if book.title == field.data and current_user.id == book.user_id:
             raise ValidationError('This title already exist', 422)
 
     return True
@@ -16,7 +17,7 @@ def unique_title(form, field):
 
 def unique_isbn(form, field) -> bool:
     for book in book_list:
-        if book.isbn == field.data:
+        if book.isbn == field.data and current_user.id == book.user_id:
             raise ValidationError('This ISBN already exist', 422)
 
     return True
