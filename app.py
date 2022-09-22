@@ -6,7 +6,8 @@ from blueprints.books import books
 from blueprints.users import users
 from forms.LoginForm import LoginForm
 from forms.RegisterForm import RegisterForm
-from models.user import get_user, User, user_list
+from models.user import User
+from repository.user_repository import UserRepository
 
 csrf = CSRFProtect()
 
@@ -24,12 +25,11 @@ login_manager.login_view = 'login_template'
 
 @login_manager.user_loader
 def load_user(id):
-    for user in user_list:
-        if str(user.id) == id:
-            g.user = user
-            return user
-    g.user = None
-    return None
+    user_repository = UserRepository()
+    user = user_repository.get(id)
+    if user is not None:
+        g.user = user
+    return user
 
 
 @app.get('/login')
@@ -66,7 +66,8 @@ def register():
             status = 'Beginner'
 
             user = User(username, name, surname, email, password, age, gender, role, points, status)
-            user_list.append(user)
+            user_repository = UserRepository()
+            user_repository.add(user)
             login_user(user, remember=True)
 
             return redirect(url_for('hello'))
@@ -81,7 +82,8 @@ def login():
     try:
         form = LoginForm()
         if form.validate_on_submit():
-            user = get_user(email=form.email.data)
+            user_repository = UserRepository()
+            user = user_repository.get_by_email(form.email.data)
             if user is not None and user.check_password(form.password.data):
                 login_user(user, remember=True)
                 return redirect(url_for('hello'))

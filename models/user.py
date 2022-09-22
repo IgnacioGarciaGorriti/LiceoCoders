@@ -3,21 +3,11 @@ import uuid
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-user_list = []
-
-
-def get_user(id: str = None, email: str = None):
-    for user in user_list:
-        if str(user.id) == id or user.email == email:
-            return user
-
-    return None
-
 
 class User(UserMixin):
+    id = str(uuid.uuid4())
 
     def __init__(self, username, name, surname, email, password, age, gender, role, points=0, status='Beginner'):
-        self.id = uuid.uuid4()
         self.username = username
         self.name = name
         self.surname = surname

@@ -3,23 +3,22 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms import StringField, IntegerField, SelectField, SubmitField
 from wtforms.validators import Length, DataRequired, ValidationError
-
-from models.book import book_list
+from repository.book_repository import BookRepository
 
 
 def unique_title(form, field):
-    for book in book_list:
-        if book.title == field.data and current_user.id == book.user_id:
-            raise ValidationError('This title already exist', 422)
-
+    book_repository = BookRepository()
+    book = book_repository.get_by_title_and_user_id(field.data, current_user.id)
+    if book is not None:
+        raise ValidationError('This title already exist', 422)
     return True
 
 
 def unique_isbn(form, field) -> bool:
-    for book in book_list:
-        if book.isbn == field.data and current_user.id == book.user_id:
-            raise ValidationError('This ISBN already exist', 422)
-
+    book_repository = BookRepository()
+    book = book_repository.get_by_isbn_and_user_id(field.data, current_user.id)
+    if book is not None:
+        raise ValidationError('This ISBN already exist', 422)
     return True
 
 

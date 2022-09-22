@@ -16,9 +16,6 @@ const deleteBook = (id, csrf_token) => {
         http.open('DELETE', window.location.origin + '/books/delete/' + id)
         http.setRequestHeader("X-CSRFToken", csrf_token);
         http.onreadystatechange = () => {
-            console.log('hola')
-            console.log(http.status)
-            console.log(http.readyState)
             if (http.status === 200 && http.readyState === 4) {
                 resolve(http.responseText)
             }
