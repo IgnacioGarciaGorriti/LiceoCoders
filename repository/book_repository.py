@@ -1,14 +1,10 @@
 from models.book import Book
-import mysql.connector
+from repository.abstract_repository import AbstractRepository
+import models.book
 
 
-class BookRepository:
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="usr_my_project",
-        password="pwd_my_project",
-        database="db_my_project_liceocoders"
-    )
+class BookRepository(AbstractRepository):
+    models.book.Base.metadata.create_all(super().engine, checkfirst=True)
 
     def get(self, book_id):
         cursor = self.connection.cursor(dictionary=True)

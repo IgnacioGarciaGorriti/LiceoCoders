@@ -1,13 +1,30 @@
 import uuid
 
 from flask_login import UserMixin
+from sqlalchemy import Column, String, Integer
 from werkzeug.security import generate_password_hash, check_password_hash
+from models.base import Base
 
 
-class User(UserMixin):
-    id = str(uuid.uuid4())
+class User(Base, UserMixin):
+    __tablename__ = 'users'
 
-    def __init__(self, username, name, surname, email, password, age, gender, role, points=0, status='Beginner'):
+    id = Column(String(255), primary_key=True)
+    username = Column(String(255))
+    name = Column(String(255))
+    surname = Column(String(255))
+    email = Column(String(255))
+    password = Column(String(255))
+    age = Column(Integer)
+    gender = Column(String(255))
+    role = Column(String(255))
+    points = Column(Integer)
+    status = Column(String(255))
+
+    def __init__(self, username, name, surname, email, password, age, gender, role, points=0, status='Beginner', *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.id = str(uuid.uuid4())
         self.username = username
         self.name = name
         self.surname = surname

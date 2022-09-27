@@ -1,6 +1,8 @@
 import os
 import uuid
 from pathlib import Path
+from sqlalchemy import Column, String, Integer, ForeignKey
+from models.base import Base
 
 
 def upload_file(file, filename):
@@ -13,10 +15,21 @@ def delete_file(filename):
     os.remove(Path.joinpath(path, filename))
 
 
-class Book:
-    id = str(uuid.uuid4())
+class Book(Base):
+    __tablename__ = 'book'
+    id = Column(String(255), primary_key=True)
+    title = Column(String(255))
+    isbn = Column(String(255))
+    category = Column(String(255))
+    filename = Column(String(255))
+    author = Column(String(255))
+    num_of_pages = Column(Integer)
+    user_id = Column(String(255), ForeignKey("users.id"))
 
-    def __init__(self, title, isbn, category, filename, author, num_of_pages, user_id):
+    def __init__(self, title, isbn, category, filename, author, num_of_pages, user_id, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.id = str(uuid.uuid4())
         self.title: str = title
         self.isbn: str = isbn
         self.category: str = category

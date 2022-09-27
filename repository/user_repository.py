@@ -1,15 +1,9 @@
-import mysql.connector
-
 from models.user import User
+from repository.abstract_repository import AbstractRepository
+import models.user
 
-
-class UserRepository:
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="usr_my_project",
-        password="pwd_my_project",
-        database="db_my_project_liceocoders"
-    )
+class UserRepository(AbstractRepository):
+    models.user.Base.metadata.create_all(super().engine, checkfirst=True)
 
     def get(self, user_id):
         cursor = self.connection.cursor(dictionary=True)
