@@ -2,6 +2,7 @@ import uuid
 
 from flask_login import UserMixin
 from sqlalchemy import Column, String, Integer
+from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 from models.base import Base
 
@@ -13,13 +14,14 @@ class User(Base, UserMixin):
     username = Column(String(255))
     name = Column(String(255))
     surname = Column(String(255))
-    email = Column(String(255))
+    email = Column(String(255), unique=True, nullable=False)
     password = Column(String(255))
     age = Column(Integer)
     gender = Column(String(255))
     role = Column(String(255))
     points = Column(Integer)
     status = Column(String(255))
+    books = relationship("Book", back_populates="user")
 
     def __init__(self, username, name, surname, email, password, age, gender, role, points=0, status='Beginner', *args, **kwargs):
         super().__init__(*args, **kwargs)

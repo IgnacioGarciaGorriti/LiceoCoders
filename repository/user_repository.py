@@ -2,69 +2,18 @@ from models.user import User
 from repository.abstract_repository import AbstractRepository
 import models.user
 
-class UserRepository(AbstractRepository):
-    models.user.Base.metadata.create_all(super().engine, checkfirst=True)
 
+class UserRepository(AbstractRepository):
     def get(self, user_id):
-        cursor = self.connection.cursor(dictionary=True)
-        cursor.execute('select * from users where id = %s', (user_id,))
-        user = self.__compound_user(cursor.fetchone())
-        cursor.close()
-        return user
+        return self.session.query(User).filter_by(id=user_id).one_or_none()
 
     def get_by_email(self, email):
-        cursor = self.connection.cursor(dictionary=True)
-        cursor.execute('select * from users where email = %s', (email,))
-        user = self.__compound_user(cursor.fetchone())
-        cursor.close()
-        return user
+        return self.session.query(User).filter_by(email=email).one_or_none()
 
     def list(self):
-        user_list = []
-        cursor = self.connection.cursor(dictionary=True)
-        cursor.execute('select * from users')
-        rows = cursor.fetchall()
-        for row in rows:
-            user_list.append(self.__compound_user(row))
-        cursor.close()
-        return user_list
+        return self.session.query(User).all()
 
     def add(self, user: User):
-        cursor = self.connection.cursor()
-        cursor.execute('insert into users values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                       (
-                           user.id,
-                           user.username,
-                           user.name,
-                           user.surname,
-                           user.email,
-                           user.password,
-                           user.age,
-                           user.gender,
-                           user.role,
-                           user.points,
-                           user.status
-                       ))
-        self.connection.commit()
-        cursor.close()
+        self.session.add(user)
+        self.session.commit()
 
-    def __compound_user(self, row):
-        if row is None:
-            return None
-
-        user = User(
-            row['username'],
-            row['name'],
-            row['surname'],
-            row['email'],
-            row['password'],
-            row['age'],
-            row['gender'],
-            row['role'],
-            row['points'],
-            row['status']
-        )
-        user.id = row['id']
-        user.password = row['password']
-
-        return user

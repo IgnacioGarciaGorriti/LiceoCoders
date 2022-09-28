@@ -82,7 +82,7 @@ def update_book(book_id):
             if book.user_id != current_user.id:
                 raise ValueError("Unauthorized", 401)
 
-            book_repository.update(book_id, params)
+            book_repository.update(book, params)
 
             return redirect(url_for('books.show', book_id=book_id))
 
@@ -137,7 +137,7 @@ def remove_book(book_id):
             raise ValueError("Unauthorized", 401)
 
         delete_file(book.filename)
-        book_repository.delete(book_id)
+        book_repository.delete(book)
 
         return make_response('book deleted', 200)
 
